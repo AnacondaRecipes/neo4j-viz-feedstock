@@ -1,0 +1,94 @@
+{% set name = "neo4j-viz" %}
+{% set version = "0.3.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+    sha256: f260cb192cd5a68628f2592347124362e34df6d3940435a56ecde4ca5b3cb704
+    patches:
+      - patches/0001-avoid-strict-enum-tools-version.patch
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<39]
+
+requirements:
+  build: 
+    - patch  # [not win]
+    - m2-patch  # [win]
+  host:
+    - python
+    - pip
+    - wheel
+    - setuptools >=61.0.0
+  run:
+    - python
+    - ipython >=7,<10
+    - pydantic >=2,<3
+    - pydantic-extra-types >=2,<3
+    # avoided strict usage of enum tools
+    - enum-tools >=0.12.0
+  run_constrained:
+    # pandas
+    - pandas >=2,<3 
+    - pandas-stubs >=2,<3
+    # gds 
+    - graphdatascience >=1,<2
+    # notebook
+    - ipykernel >=6.29.5
+    - pykernel >=0.1.6
+    - neo4j >=5.26.0
+    - ipywidgets >=8.0.0
+    # conflicts with the test section when trying to use the latest palettable 3.3.0 from the main channel
+    #- palettable >=3.3.3
+    - matplotlib-base >=3.10.0
+    - snowflake-snowpark-python >=1.26.0
+
+# ModuleNotFoundError: No module named 'graphdatascience'
+{% set tests_to_skip = "test_from_gds_mocked" %}
+# Fixture 'gds' not found (part of graphdatascience pkg)
+{% set tests_to_skip = tests_to_skip + " or test_from_neo4j_graph_basic" %}
+{% set tests_to_skip = tests_to_skip + " or test_from_neo4j_result" %}
+{% set tests_to_skip = tests_to_skip + " or test_from_neo4j_graph_full" %}
+{% set tests_to_skip = tests_to_skip + " or test_from_gds_integration" %}
+# Missing test dir
+{% set ignore_tests = " --ignore=tests/test_notebooks.py" %}
+
+test:
+  source_files:
+    - tests
+  imports:
+    - neo4j_viz
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v -k "not ({{ tests_to_skip }})" {{ ignore_tests }} tests
+  requires:
+    - pip
+    - pytest
+    - neo4j >=5.26.0
+    - selenium
+    - pandas >=2,<3 
+    - nbformat
+    - pytest-mock
+    - nbclient
+    - nbconvert
+    - palettable
+
+about:
+  home: https://neo4j.com
+  summary: A simple graph visualization tool
+  license: GPL-3.0
+  license_family: GPL3
+  license_file: LICENSE
+  description: A simple graph visualization tool
+  dev_url: https://github.com/neo4j/python-graph-visualization/tree/main/python-wrapper
+  doc_url: https://neo4j.com/docs/nvl-python/preview/
+
+extra:
+  recipe-maintainers:
+    - snegireff
