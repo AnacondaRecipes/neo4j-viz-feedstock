@@ -57,6 +57,9 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_from_gds_integration" %}
 # Missing test dir
 {% set ignore_tests = " --ignore=tests/test_notebooks.py" %}
+# selenium.common.exceptions.NoSuchDriverException: Message: Unable to obtain driver for chrome;
+# Disabled the test that needs to use UI features.
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_render.py" %}
 
 test:
   source_files:
