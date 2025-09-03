@@ -40,7 +40,6 @@ requirements:
     - pykernel >=0.1.6
     - neo4j >=5.26.0
     - ipywidgets >=8.0.0
-    # conflicts with the test section when trying to use the latest palettable 3.3.0 from the main channel
     - palettable >=3.3.3
     - matplotlib-base >=3.9.4
     - snowflake-snowpark-python >=1,<2
@@ -88,8 +87,9 @@ test:
     - pytest-mock
     - nbclient
     - nbconvert
-    - palettable
+    - palettable >=3.3.3
     - snowflake-snowpark-python
+
 
 about:
   home: https://neo4j.com
