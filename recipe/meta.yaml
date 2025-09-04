@@ -42,7 +42,8 @@ requirements:
     - ipywidgets >=8.0.0
     - palettable >=3.3.3
     - matplotlib-base >=3.9.4
-    - snowflake-snowpark-python >=1,<2
+    # Check next time, currently 1.36 on the channel, conflict with the test pin
+    # - snowflake-snowpark-python >=1.37.0
 
 # ModuleNotFoundError: No module named 'graphdatascience'
 {% set tests_to_skip = "test_from_gds_mocked" %}
@@ -79,14 +80,14 @@ test:
     - pytest -v -k "not ({{ tests_to_skip }})" {{ ignore_tests }} tests
   requires:
     - pip
-    - pytest
+    - pytest >=8.3.4
     - neo4j >=5.26.0
     - selenium
     - pandas >=2,<3 
     - nbformat
-    - pytest-mock
+    - pytest-mock >=3.14.0
     - nbclient
-    - nbconvert
+    - nbconvert >=7.16.6
     - palettable >=3.3.3
     - snowflake-snowpark-python
 
@@ -99,7 +100,7 @@ about:
   license_file: LICENSE
   description: A simple graph visualization tool
   dev_url: https://github.com/neo4j/python-graph-visualization/tree/main/python-wrapper
-  doc_url: https://neo4j.com/docs/nvl-python/preview/
+  doc_url: https://neo4j.com/docs/nvl-python/preview
 
 extra:
   recipe-maintainers:
