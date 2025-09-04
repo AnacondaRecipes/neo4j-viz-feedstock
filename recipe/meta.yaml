@@ -85,7 +85,6 @@ test:
     - neo4j_viz.options
     - neo4j_viz.pandas
     - neo4j_viz.relationship
-    - neo4j_viz.snowflake
     - neo4j_viz.visualization_graph
   commands:
     - pip check
