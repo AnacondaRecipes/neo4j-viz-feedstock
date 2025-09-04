@@ -89,7 +89,7 @@ test:
     - nbclient
     - nbconvert >=7.16.6
     - palettable >=3.3.3
-    - snowflake-snowpark-python
+    - snowflake-snowpark-python >=1.36
 
 
 about:
