@@ -65,9 +65,8 @@ requirements:
 # selenium.common.exceptions.NoSuchDriverException: Message: Unable to obtain driver for chrome;
 # Disabled the test that needs to use UI features.
 {% set ignore_tests = ignore_tests + " --ignore=tests/test_render.py" %}
-# Pandas is pinned but for some reason test failing with following reason
-# snowflake.connector.errors.MissingDependencyError: Missing optional dependency: pandas
-{% set tests_to_skip = tests_to_skip + " or test_from_snowflake" %}
+# ImportError: cannot import name 'VectorType' from 'snowflake.snowpark.types
+{% set ignore_tests = ignore_tests + " --ignore=tests/test_snowflake.py" %}
 
 test:
   source_files:
