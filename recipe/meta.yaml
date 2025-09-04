@@ -76,6 +76,17 @@ test:
     - tests
   imports:
     - neo4j_viz
+    - neo4j_viz.colors
+    - neo4j_viz.gql_create
+    - neo4j_viz.neo4j
+    - neo4j_viz.node
+    - neo4j_viz.node_size
+    - neo4j_viz.nvl
+    - neo4j_viz.options
+    - neo4j_viz.pandas
+    - neo4j_viz.relationship
+    - neo4j_viz.snowflake
+    - neo4j_viz.visualization_graph
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
