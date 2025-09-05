@@ -17,8 +17,6 @@ build:
   skip: True  # [py<39]
 
 requirements:
-  build:
-    - msys2-patch  # [win]
   host:
     - python
     - pip
@@ -101,7 +99,6 @@ test:
     - nbconvert >=7.16.6
     - palettable >=3.3.3
     - snowflake-snowpark-python
-
 
 about:
   home: https://neo4j.com
