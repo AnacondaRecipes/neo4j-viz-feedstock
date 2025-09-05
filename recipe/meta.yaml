@@ -17,6 +17,8 @@ build:
   skip: True  # [py<39]
 
 requirements:
+  build:
+    - msys2-patch  # [win]
   host:
     - python
     - pip
