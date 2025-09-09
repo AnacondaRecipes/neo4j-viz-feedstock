@@ -44,7 +44,7 @@ requirements:
     - ipywidgets >=8.0.0
     - palettable >=3.3.3
     - matplotlib-base >=3.9.4
-    - snowflake-snowpark-python >=1.37.0
+    - snowflake-snowpark-python >=1.38.0
 
 # ModuleNotFoundError: No module named 'graphdatascience'
 {% set tests_to_skip = "test_from_gds_mocked" %}
@@ -99,7 +99,7 @@ test:
     - nbclient
     - nbconvert >=7.16.6
     - palettable >=3.3.3
-    - snowflake-snowpark-python >=1.37.0
+    - defaults::snowflake-snowpark-python >=1.38.0
 
 about:
   home: https://neo4j.com
