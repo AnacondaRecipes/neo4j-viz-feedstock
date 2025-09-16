@@ -8,12 +8,15 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
   sha256: db8a3f8fc35c5465ac2e4a971333b39377bb38d65a258f44185bf49010d08624
-  patches:
-    - patches/0001-avoid-strict-enum-tools-version.patch
+  patches:  # [unix]
+    - patches/0001-avoid-strict-enum-tools-version.patch  # [unix]
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  script: 
+    # Manually applying the patch on Windows as a workaround for a CI issue.
+    - git apply patches/0001-avoid-strict-enum-tools-version.patch  # [win]
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: True  # [py<39]
 
 requirements:
